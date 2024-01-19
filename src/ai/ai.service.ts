@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { OpenAI } from 'langchain/llms/openai';
 import { PromptTemplate } from 'langchain/prompts';
 import { jsonrepair } from 'jsonrepair';
-import cohere from 'cohere-ai';
 
 const baseRoadmapJsonStructure = `{"title":"Learning topic","description":"Learning topic description","steps":[{"title":"Roadmap step 1 name","description":"Roadmap step 1 description","topics":[{"name":"Topic 1 name","description":"Topic 1 description","resources":[{"name":"Topic 1 first useful resource name","link":"link to Topic 1 first useful resource name"},{"name":"Topic 1 second useful resource name","link":"link to Topic 1 second useful resource name"}]},{"name":"Topic 2 name","description":"Topic 2 description","resources":[{"name":"Topic 2 first useful resource name","link":"link to Topic 2 first useful resource name"},{"name":"Topic 2 second useful resource name","link":"link to Topic 2 second useful resource name"}]},{"name":"Topic 3 name","description":"Topic 3 description","resources":[{"name":"Topic 3 first useful resource name","link":"link to Topic 3 first useful resource name"},{"name":"Topic 3 second useful resource name","link":"link to Topic 3 second useful resource name"}]},{"name":"Topic 4 name","description":"Topic 4 description","resources":[{"name":"Topic 4 first useful resource name","link":"link to Topic 4 first useful resource name"},{"name":"Topic 4 second useful resource name","link":"link to Topic 4 second useful resource name"}]},{"name":"Topic 5 name","description":"Topic 5 description","resources":[{"name":"Topic 5 first useful resource name","link":"link to Topic 5 first useful resource name"},{"name":"Topic 5 second useful resource name","link":"link to Topic 5 second useful resource name"}]}]},{"title":"Roadmap step 2 name","description":"Roadmap step 2 description","topics":[{"name":"Topic 1 name","description":"Topic 1 description","resources":[{"name":"Topic 1 first useful resource name","link":"link to Topic 1 first useful resource name"},{"name":"Topic 1 second useful resource name","link":"link to Topic 1 second useful resource name"}]},{"name":"Topic 2 name","description":"Topic 2 description","resources":[{"name":"Topic 2 first useful resource name","link":"link to Topic 2 first useful resource name"},{"name":"Topic 2 second useful resource name","link":"link to Topic 2 second useful resource name"}]},{"name":"Topic 3 name","description":"Topic 3 description","resources":[{"name":"Topic 3 first useful resource name","link":"link to Topic 3 first useful resource name"},{"name":"Topic 3 second useful resource name","link":"link to Topic 3 second useful resource name"}]},{"name":"Topic 4 name","description":"Topic 4 description","resources":[{"name":"Topic 4 first useful resource name","link":"link to Topic 4 first useful resource name"},{"name":"Topic 4 second useful resource name","link":"link to Topic 4 second useful resource name"}]},{"name":"Topic 5 name","description":"Topic 5 description","resources":[{"name":"Topic 5 first useful resource name","link":"link to Topic 5 first useful resource name"},{"name":"Topic 5 second useful resource name","link":"link to Topic 5 second useful resource name"}]}]}]}`;
 
@@ -11,19 +10,9 @@ const baseRoadmapTestJsonStructure = `{"tests":[{"question":"What is the purpose
 @Injectable()
 export class AiService {
   async getConceptDescription(mainRoadmapTitle: string, description: string) {
-    cohere.init(process.env.COHERE_API_KEY);
     const prompt = `what is meant by ${description}, where it used and how it useful for ${mainRoadmapTitle}`;
-    const response = await cohere.generate({
-      model: 'command',
-      prompt: prompt,
-      max_tokens: 300,
-      temperature: 0.9,
-      k: 0,
-      stop_sequences: [],
-      return_likelihoods: 'NONE',
-    });
 
-    const text = response.body.generations[0].text;
+    const text = 'hello world'
     return text;
   }
 
